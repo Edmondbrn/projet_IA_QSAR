@@ -56,6 +56,7 @@ dependencies:
   - patsy=1.0.1=pyhd8ed1ab_1
   - pillow=11.0.0=py310hfeaa1f3_0
   - pip=24.3.1=pyh8b19718_2
+  - plotly=5.24.1=pyhd8ed1ab_1
   - pthread-stubs=0.4=hb9d3cd8_1002
   - pyparsing=3.2.0=pyhd8ed1ab_2
   - python=3.10.16=he725a3c_1_cpython
@@ -72,6 +73,7 @@ dependencies:
   - setuptools=75.6.0=pyhff2d567_1
   - six=1.17.0=pyhd8ed1ab_0
   - statsmodels=0.14.4=py310hf462985_0
+  - tenacity=9.0.0=pyhd8ed1ab_1
   - threadpoolctl=3.5.0=pyhc1e730c_0
   - tk=8.6.13=noxft_h4845f30_101
   - tzdata=2024b=hc8b5060_0
