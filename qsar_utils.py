@@ -6,6 +6,7 @@ import seaborn as sns
 def scatter_QSAR(x_data : list[float], 
                  y_data : list[float], 
                  corr_coef : float,
+                 xlim : tuple[float, float] = (0,10),
                  dot_color : str = "skyblue", 
                  line_color : str = "black",
                  line_style : str = "dashed",
@@ -23,6 +24,7 @@ def scatter_QSAR(x_data : list[float],
     
     sns.set_style("whitegrid")
     plt.figure(figsize=(10, 10))
+    plt.xlim(xlim)
     sns.regplot(x = x_data, y = y_data, color = dot_color, line_kws={"color" : line_color, "linestyle" : line_style})
     plt.xlabel("LC50 prédite", fontsize = 14)
     plt.ylabel("LC50 expérimentale", fontsize = 14)
