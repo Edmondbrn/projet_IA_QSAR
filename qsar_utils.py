@@ -232,6 +232,54 @@ def AD_graph(thresholds : np.ndarray, q2_per_threshold : np.ndarray, pct_out_of_
     plt.show()
 
 
+    
+def barplot_perf(data : pd.DataFrame, x_col : str, y_col : str , yerr_col : str, 
+                 x_label : str, y_label : str, title : str,
+                 ylim : tuple[float] = (0.5, 0.625)) -> None:
+    """
+    Fonction qui créé un graphique en barres pour visualiser les performances du modèle
+    Les barres sont les moyennes et les erreurs sont les écarts-types
+    """
+    sns.set_style("whitegrid")
+    plt.figure(figsize=(10, 5))
+
+    ax = sns.barplot(
+        x=x_col,
+        y=y_col,
+        data=data,
+        hue=x_col,
+        palette="Blues_d",
+        errorbar=None, 
+        legend=False
+    )
+    positions = range(len(data))
+
+    ax.errorbar(
+        x=positions,
+        y=data[y_col],
+        yerr=data[yerr_col],
+        fmt='none',
+        c='black',
+        capsize=5
+    )
+
+    plt.xlabel(x_label, fontsize=14)
+    plt.ylabel(y_label, fontsize=14)
+    plt.title(title, fontsize=16)
+    plt.ylim(ylim)
+    plt.show()
+
+def boxplot_perf(data : pd.DataFrame, x_col : str, y_col : str, x_label : str, y_label : str, title : str) -> None:
+    """
+    Fonction qui créé un graphique en boîte pour visualiser les performances du modèle
+    """
+    sns.set_style("whitegrid")
+    plt.figure(figsize=(10, 5))
+    sns.boxplot(x=x_col, y=y_col, data=data, hue = x_col,palette="Blues_d", legend=False)
+    plt.xlabel(x_label, fontsize=14)
+    plt.ylabel(y_label, fontsize=14)
+    plt.title(title, fontsize=16)
+    plt.show()
 
 def load_data(csv_path="data/qsar_fish_toxicity_norm.csv", drop_col="LC50"):
     """
@@ -255,7 +303,7 @@ def repartition_egale(T, L):
         result[i] += 1
     return tuple(result)
 
-def generate_configurations(nb_total_neuron : int, nb_layers_max : list[int], file_name : str = "congiguration_default.txt") -> None:
+def generate_configurations(nb_total_neuron : int, nb_layers_max : list[int], file_name : str = "nestedCV_MLP/congiguration_default.txt") -> None:
     """
     Génère des fichiers de configuration pour différentes
     architectures (nb neurones totaux répartis sur nb de couches).
@@ -421,16 +469,3 @@ def run_nested_cv_MLP(  data : pd.DataFrame,
     df_results = pd.DataFrame(results_per_fold)
     df_results.to_csv(f"nestedCV_final_results_config_{num_config}.csv", index=False)
     print(df_results)
-
-def optimize_MLP():
-    generate_configurations(
-        nb_total_neuron=[10, 50, 100, 200, 500, 1000, 2000, 5000, 10000],
-        nb_layers=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    )
-    run_nested_cv_MLP(
-        nb_total_neuron=[10, 50, 100, 200, 500, 1000, 2000, 5000, 10000],
-        nb_layers=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    )
-
-if __name__ == "__main__":
-    optimize_MLP()
