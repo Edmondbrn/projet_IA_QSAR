@@ -329,18 +329,24 @@ def apply_AD_and_score(X_train : pd.DataFrame,
     if threshold is None: # On applique pas d'AD pour le score (aucun variable filtrée)
         return r2_score(y_test, y_pred_test), len(y_test), 0
     else:
-        knn.fit(X_train) # on calculce les distances entre les points de test et d'entrainement
-        dist, _ = knn.kneighbors(X_test)
-        mean_dist = dist.mean(axis=1)
-        in_AD_mask = mean_dist < threshold
-        y_test_in = y_test[in_AD_mask]
-        y_pred_in = y_pred_test[in_AD_mask]
+        y_test_in, y_pred_in, in_AD_mask = apply_AD(X_train, X_test, y_test, y_pred_test, knn, threshold)
         nb_out = np.sum(~in_AD_mask) # somme des molécules hors AD
         if len(y_test_in) == 0:
             return np.nan, 0, nb_out
         return r2_score(y_test_in, y_pred_in), len(y_test_in), nb_out
     
 
+def apply_AD(X_train : pd.DataFrame, X_test : pd.DataFrame, y_test : pd.DataFrame, y_pred_test :  pd.DataFrame, knn : NearestNeighbors, threshold : float=None):
+    """
+    Fonction qui filtre les données en fonctions du seuil de domaine d'applicabilité (AD)
+    """
+    knn.fit(X_train) # on calculce les distances entre les points de test et d'entrainement
+    dist, _ = knn.kneighbors(X_test)
+    mean_dist = dist.mean(axis=1)
+    in_AD_mask = mean_dist < threshold
+    y_test_in = y_test[in_AD_mask]
+    y_pred_in = y_pred_test[in_AD_mask]
+    return y_test_in, y_pred_in, in_AD_mask
 
 def load_neural_configuration(file_path):
     """
