@@ -412,6 +412,7 @@ def run_nested_cv_MLP(  data : pd.DataFrame,
 
     results_per_fold = []
     fold_id = 0
+    total = outer_cv.get_n_splits(X_scaled)
     # parcours des différents folds pour la cross validation (CV) pour l'évaluation des performances du modèle
     for train_idx, test_idx in outer_cv.split(X_scaled):
         fold_id += 1
@@ -465,6 +466,7 @@ def run_nested_cv_MLP(  data : pd.DataFrame,
         }
         results_per_fold.append(fold_result)
         pd.DataFrame(results_per_fold).to_csv(csv_temp, index=False)
+        print(f"Fold {fold_id}/{total} terminé")
 
     df_results = pd.DataFrame(results_per_fold)
     df_results.to_csv(f"nestedCV_final_results_config_{num_config}.csv", index=False)

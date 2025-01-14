@@ -4,19 +4,19 @@
 # %% [markdown]
 # #### Importation des modules
 
-# %%
-import pandas as pd
-import numpy as np
-from sklearn.neural_network import MLPRegressor
-from sklearn.model_selection import KFold, LeaveOneOut
-from sklearn.decomposition import PCA
-from sklearn.neighbors import NearestNeighbors
-from scipy.stats import pearsonr,loguniform
-import qsar_utils as qu
-import pickle
-import os
-import re
-import ast
+# # %%
+# import pandas as pd
+# import numpy as np
+# from sklearn.neural_network import MLPRegressor
+# from sklearn.model_selection import KFold, LeaveOneOut
+# from sklearn.decomposition import PCA
+# from sklearn.neighbors import NearestNeighbors
+# from scipy.stats import pearsonr,loguniform
+# import qsar_utils as qu
+# import pickle
+# import os
+# import re
+# import ast
 
 # # %% [markdown]
 # # #### Chargement des données
@@ -84,47 +84,5 @@ import ast
 
 
 
-def LOO_LC50_MLP(df : pd.DataFrame, df_LC50 : pd.DataFrame) -> tuple[list[float], float]:
-    """
-    Cette fonction permet d'effectuer un Leave one Out sur des données pandas et de l'appliquer à un modèle MLP pour
-    prédire la valeur de la LC50 d'une molécule
-    df : tableau pandas avec les données
-    df_LC50 : tableau pandas avec les valeurs de la LC50
-    model : modèle MLP
-    """
-    print("Début du LOO du MLP")
-    loo = LeaveOneOut() # initialisation du LeaveOneOut
-    predicted_LC50 = list()
-    model = MLPRegressor(hidden_layer_sizes=(56, 56, 56, 56, 56, 55, 55, 55, 55), 
-                         max_iter=100000, 
-                         alpha=0.005044, 
-                         solver='adam', 
-                         activation='relu', 
-                         learning_rate_init=0.000028)
-    tot = len(df)
-    cpt = 0
-    for train_index, test_index in loo.split(df): # parcours des index sélectionnés par le leave one out
-        cpt += 1
-        model.fit(df.iloc[train_index], df_LC50.iloc[train_index])
-        predict = model.predict(df.iloc[test_index])
-        predicted_LC50.append(predict[0])
-        print(f"{cpt}/{tot}, predicted LC50: {predict[0]}")
-    
-    corr_coef, _ = pearsonr(df_LC50, predicted_LC50) # calcul du coefficients de corrélation
-    slope = model.coefs_
-    intercept = model.intercepts_
-    return predicted_LC50, corr_coef, slope, intercept
-
-df_norm = pd.read_csv("data/qsar_fish_toxicity_norm.csv")
-df_LC50 = df_norm["LC50"]
-df_norm = df_norm.drop(columns=["LC50"])
-
-predicted_LC50, corr_coef, slope, intercept = LOO_LC50_MLP(df_norm, df_LC50)
-
-
-print(f"Le coefficient de corrélation est de {corr_coef}")
-print(f"Le slope est de {slope}")
-print(f"L'intercept est de {intercept}")
-print(f"Les valeurs prédites sont {predicted_LC50}")
 
 
