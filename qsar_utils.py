@@ -7,7 +7,6 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import NearestNeighbors
 from sklearn.metrics import make_scorer, r2_score
-from scipy.stats import loguniform  # distributions possibles
 import ast
 
 def get_mean_dist(X_train : pd.DataFrame, X_test : pd.DataFrame, knn : NearestNeighbors) -> np.ndarray:

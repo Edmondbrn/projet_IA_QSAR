@@ -46,9 +46,8 @@ for i, T in enumerate(total_neurones):
 
 
 
-df_norm = pd.read_csv("data/qsar_fish_toxicity_norm.csv")
-LC50 = df_norm["LC50"]
-data = df_norm.drop(columns=["LC50"])
+
+
 best_models = pd.read_csv("nested_MLP_2/best_models.csv")
 best_models = best_models[["nb_neurones","alpha","activation","hidden_layer_sizes","learning_rate_init"]]
 # conversion de la colonne avec les couches en tuple
@@ -87,7 +86,7 @@ best_models["hidden_layer_sizes"] = best_models["hidden_layer_sizes"].apply(lamb
 #             scores["no_AD"].append(score_noAD)
 #             scores["strict"].append(score_strict)
 #             scores["soft"].append(score_soft)
-#     # calculd es moyenens des scores pour chaque modèle
+#     # calcul des moyennes des scores pour chaque modèle
 #     row_final = pd.DataFrame({
 #         "nb_neurones": [param["nb_neurones"]],
 #         "alpha": [param["alpha"]],
