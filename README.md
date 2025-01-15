@@ -33,11 +33,11 @@ conda activate <env_name>
 
 - RandomForest
 
-  `optimisation_paramètres_RFR.py` : Fichier pour obtenir les paramètres de random forest optimisés
+`optimisation_paramètres_RFR.py` : Fichier pour obtenir les paramètres de random forest optimisés
 
-  `efficiency_rfr.py` : Fichier pour calculer les différents scores des modèles obtenus et déterminer le meilleur
+`efficiency_rfr.py` : Fichier pour calculer les différents scores des modèles obtenus et déterminer le meilleur
 
-  `best_rfr_testing.ipynb` Fichier pour tester le modèle sélectionné avec l'ensemble de test et visualiser les résultats
+`best_rfr_testing.ipynb` Fichier pour tester le modèle sélectionné avec l'ensemble de test et visualiser les résultats
 
 ## Auteurs
 - [@Berne Edmond](https://github.com/Edmondbrn)
