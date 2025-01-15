@@ -17,7 +17,7 @@ conda activate <env_name>
 ```
 
 ## Fichiers
-- MLP
+- Perceptron multicouche
 
 `def_AD_opti_param.ipynb`: Fichier pour définir le domain d'applicabilit" du MLP et lancer l'optimisationd es hyperparamètres et visualiser les résultats
 
