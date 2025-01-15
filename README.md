@@ -18,14 +18,17 @@ conda activate <env_name>
 
 ## Fichiers
 - MLP
+
 `def_AD_opti_param.ipynb`: Fichier pour définir le domain d'applicabilit" du MLP et lancer l'optimisationd es hyperparamètres et visualiser les résultats
 
 `regression_MLP_evaluation_modeles.ipynb`: Fichier pour évaluer et sélectionner le meilleur modèle de MLP après l'optimisation
 
 - Regréssion linéaire
+
 `regresssion_lineaire.ipynb`: Fichier pour obtenir les performances du modèle de régression
 
 - Exploration des données
+
 `visualisation_data.ipynb`: Fichier pour avoir un bref aperçu des données et de leur qualité
 
 ## Auteurs
